@@ -86,7 +86,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
       return res.status(400).json({ message: 'Missing file or receiver name' });
     }
     const backendBaseUrl = "https://qrsend-backend.onrender.com";
-    const fileUrl = `${backendBaseUrl}/files/${file.filename}`;
+    const fileUrl = `${backendBaseUrl}/files/${file.filename}`; // ✅ public-facing URL
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
@@ -95,17 +95,17 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
         fileUrl: file.path,
       }
     });
-
     await newDoc.save();
+
     const qrDataUrl = await QRCode.toDataURL(fileUrl);
+
     console.log(qrDataUrl);
 
     res.json({
       success: true,
-      pdf: {
-        fileUrl: file.path,
-        receiver,
-      },
+      fileName: file.filename, // ✅ Add this line to let frontend construct the URL
+      fileUrl: fileUrl,        // ✅ Optionally return full URL too
+      receiver,
       qrcode: qrDataUrl
     });
 
