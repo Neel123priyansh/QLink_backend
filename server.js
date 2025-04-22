@@ -1,5 +1,5 @@
 import express from 'express';
-import mongodb from './mongodb.js';
+import connectDB from './mongodb.js';
 import cors from 'cors';
 import dbmschema from './schema.js';
 import assinmodel from './assinschema.js';
@@ -24,6 +24,13 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
+// app.options("*", cors(corsOptions)); 
+
+app.use((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  console.log(`Incoming Request IP: ${ip}`);
+  next();
+});
 
 
 // Static Files
@@ -160,7 +167,7 @@ app.post('/verify', async (req, res) => {
 });
 
 // Connect DB and Start Server
-mongodb().then(() => {
+connectDB().then(() => {
   app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
   });
