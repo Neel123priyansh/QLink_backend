@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import dbmschema from './schema.js';3
+import dbmschema from './schema.js';
+import assinmodel from './assinschema.js';
 import multer from 'multer'
 import QRCode from 'qrcode';
 import mongoose from "mongoose";
@@ -13,7 +14,7 @@ const corsOptions = {
   origin: [
     'http://localhost:5173', 
     'https://qr-send-sdn5.vercel.app',
-    'https://qrsend-backend.onrender.com'
+    'https://qrsend-backend.onrender.com',
   ],
 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
@@ -21,7 +22,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions)); 
+
 
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -31,7 +32,7 @@ app.use((req, res, next) => {
 
 
 const MONGO_URI = "mongodb+srv://neelpriyansh:BUHM0hbEryFmL4Aw@cluster0.mtjrnw1.mongodb.net/";
-mongoose.connect(MONGO_URI)
+mongoose.connect(MONGO_URI || "mongodb://localhost:27017/")
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("MongoDB Connection Error:", err));
 
@@ -90,7 +91,9 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
       return res.status(400).json({ message: 'Missing file or receiver name' });
     }
 
-    const fileUrl = `https://qr-send-sdn5.vercel.app/${file.filename}`; // Public URL
+    const fileUrl = `https://qrsend-backend.onrender.com/files/${file.filename}`;
+
+
 
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
@@ -169,7 +172,7 @@ app.post('/verify', async (req, res) => {
   }
 });
 
-const PORT = 7000;
+const PORT = 60000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+    console.log(`🚀 Server running at ${PORT}`);
   });
