@@ -172,8 +172,6 @@ app.post('/verify', async (req, res) => {
   }
 });
 
-app.use("/", router);
-
 
 const PORT = 60000;
 app.listen(PORT, () => {
