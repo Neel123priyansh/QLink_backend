@@ -13,7 +13,7 @@ app.use(express.json());
 const corsOptions = {
   origin: [
     'http://localhost:5173', 
-    'https://qr-send-sdn5.vercel.app',
+    'https://qr-send.vercel.app/',
     'https://qrsend-backend.onrender.com',
   ],
 
@@ -171,6 +171,9 @@ app.post('/verify', async (req, res) => {
     res.status(500).json({ message: "Server error during face verification." });
   }
 });
+
+app.use("/", router);
+
 
 const PORT = 60000;
 app.listen(PORT, () => {
