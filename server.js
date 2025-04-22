@@ -172,6 +172,14 @@ app.post('/verify', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.status(200).send({
+    activeStatus: true,
+    error: false,
+    message: "Server is working!"
+  });
+});
+
 
 const PORT = 60000;
 app.listen(PORT, () => {
