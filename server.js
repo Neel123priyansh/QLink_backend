@@ -85,8 +85,8 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     if (!file || !receiver) {
       return res.status(400).json({ message: 'Missing file or receiver name' });
     }
-
-    const fileUrl = `https://qrsend-backend.onrender.com/files/${file.filename}`;
+    const backendBaseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://qrsend-backend.onrender.com";
+    const fileUrl = `${backendBaseUrl}/files/${response.data.fileName}`;
 
 
 
