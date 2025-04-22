@@ -24,7 +24,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); 
+
 
 // Static Files
 app.use('/files', express.static('files'));
