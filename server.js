@@ -5,24 +5,19 @@ import assinmodel from './assinschema.js';
 import multer from 'multer'
 import QRCode from 'qrcode';
 import mongoose from "mongoose";
+import { json } from 'express';
 
 const app = express();
-app.use(express.json());
+app.use(json());
 
 
 const corsOptions = {
-  origin: [
-    'http://localhost:5173', 
-    'https://qr-send.vercel.app/',
-    'https://qrsend-backend.onrender.com',
-  ],
-
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
-
 
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -179,7 +174,6 @@ app.get('/', (req, res) => {
     message: "Server is working!"
   });
 });
-
 
 const PORT = 60000;
 app.listen(PORT, () => {
