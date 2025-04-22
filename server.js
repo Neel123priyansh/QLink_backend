@@ -14,11 +14,17 @@ app.use(express.json());
 
 // CORS Setup
 const corsOptions = {
-  origin: ['http://localhost:5173', 'https://qr-send-sdn5.vercel.app/'],
+  origin: [
+    'http://localhost:5173', 
+    'https://qr-send-sdn5.vercel.app/',
+    'https://qrsend-backend.onrender.com'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); 
 
 // Static Files
 app.use('/files', express.static('files'));

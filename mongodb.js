@@ -4,7 +4,8 @@ const MONGO_URI = "mongodb+srv://neelpriyansh:BUHM0hbEryFmL4Aw@cluster0.mtjrnw1.
 
 const mongodb = async() => {
     try {
-        await mongoose.connect(MONGO_URI)
+        await mongoose.connect(MONGO_URI).then(() => console.log("MongoDB Connected"))
+        .catch(err => console.log("MongoDB Connection Error:", err));
         console.log("Connection Succcess");
     } catch (error) {
         console.error("Database Failed") 
