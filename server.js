@@ -7,7 +7,7 @@ import multer from 'multer'
 import QRCode from 'qrcode';
 
 const app = express();
-const port = 5200;
+const port = 10000;
 
 // Middleware to parse JSON body
 app.use(express.json());
