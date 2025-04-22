@@ -85,11 +85,23 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     if (!file || !receiver) {
       return res.status(400).json({ message: 'Missing file or receiver name' });
     }
+    let rfid;
+    if (receiver.toLowerCase() === 'yashpandey') {
+      rfid = '3518510840'; // fixed for Yash
+    } else if(receiver.toLowerCase() === 'altamashbeg') {
+      rfid = '2345246456';
+    }else{
+      console.log("User Not Found")
+    }
+
+
+
     const backendBaseUrl = "https://qrsend-backend.onrender.com";
     const fileUrl = `${backendBaseUrl}/files/${file.filename}`; // ✅ public-facing URL
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
+      rfid: rfid,
       fileName: file.originalname,
       pdf: {
         fileUrl: file.path,
@@ -103,7 +115,8 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
 
     res.json({
       success: true,
-      fileName: file.filename, // ✅ Add this line to let frontend construct the URL
+      fileName: file.filename, 
+      rfid,
       fileUrl: fileUrl,        // ✅ Optionally return full URL too
       receiver,
       qrcode: qrDataUrl

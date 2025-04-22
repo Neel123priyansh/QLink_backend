@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const PDFschema = new mongoose.Schema({
     name: {type: String, required: true},
-    fileName: String,
+    rfid: {type: Number, required: true},
+    fileName: { type: String, required: true },
     pdf: {
         fileUrl: {type: String, required: true},
         uploadDate: { type: Date, default: Date.now },
