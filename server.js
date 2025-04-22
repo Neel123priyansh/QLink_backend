@@ -87,14 +87,12 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     }
     const backendBaseUrl = "https://qrsend-backend.onrender.com";
     const fileUrl = `${backendBaseUrl}/files/${file.filename}`;
-    
-
+  
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
       fileName: file.originalname,
       pdf: {
         fileUrl: file.path,
-        // uploadDate is automatically handled by schema's default
       }
     });
 
