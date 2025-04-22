@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const PDFschema = new mongoose.Schema({
     name: {type: String, required: true},
@@ -10,4 +10,5 @@ const PDFschema = new mongoose.Schema({
 })
 
 const assinmodel = mongoose.model("assinPDF", PDFschema)
-export default assinmodel
+
+export default assinmodel;

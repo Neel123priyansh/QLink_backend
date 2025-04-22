@@ -1,24 +1,21 @@
 import express from 'express';
-import connectDB from './mongodb.js';
 import cors from 'cors';
-import dbmschema from './schema.js';
-import assinmodel from './assinschema.js';
+import dbmschema from './schema.js';3
 import multer from 'multer'
 import QRCode from 'qrcode';
+import mongoose from "mongoose";
 
 const app = express();
-const port = 10000;
-
-// Middleware to parse JSON body
 app.use(express.json());
 
-// CORS Setup
+
 const corsOptions = {
   origin: [
     'http://localhost:5173', 
-    'https://qr-send-sdn5.vercel.app/',
+    'https://qr-send-sdn5.vercel.app',
     'https://qrsend-backend.onrender.com'
   ],
+
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,6 +28,12 @@ app.use((req, res, next) => {
   console.log(`Incoming Request IP: ${ip}`);
   next();
 });
+
+
+const MONGO_URI = "mongodb+srv://neelpriyansh:BUHM0hbEryFmL4Aw@cluster0.mtjrnw1.mongodb.net/";
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log("MongoDB Connection Error:", err));
 
 
 // Static Files
@@ -166,9 +169,7 @@ app.post('/verify', async (req, res) => {
   }
 });
 
-// Connect DB and Start Server
-connectDB().then(() => {
-  app.listen(port, () => {
-    console.log(`🚀 Server running at http://localhost:${port}`);
+const PORT = 7000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
   });
-});
