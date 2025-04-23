@@ -73,6 +73,24 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get("/get-user-by-rfid/:rfid", async(req, res) => {
+  try {
+    const {rfid} = req.params
+    const user = await assinmodel.findOne({ rfid });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    res.json({
+      success: true,
+      name: user.name,
+      pdfUrl: user.pdf.fileUrl // optional: send file URL
+    });
+  } catch (error) {
+    console.error("Error fetching user by RFID:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+})
+
 
 app.post("/upload-files", upload.single("file"), async (req, res) => {
   try {
