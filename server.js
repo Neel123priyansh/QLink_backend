@@ -104,11 +104,11 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     }
     let rfid;
     if (receiver.toLowerCase() === 'yashpandey') {
-      rfid = '3518510840'; // fixed for Yash
+      rfid = '3518510840'; 
     } else if(receiver.toLowerCase() === 'altamashbeg') {
       rfid = '2345246456';
-    } else if(receiver === 'Priyansh Neel'){
-      rfid = '1234456778';
+    // } else if(receiver === 'Priyansh Neel'){
+    //   rfid = '1234456778';
     }
     else{
       console.log("User Not Found")
