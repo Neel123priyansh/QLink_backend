@@ -82,7 +82,7 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
     }
     res.json({
       success: true,
-      name: user.name,
+      name: user.label,
       pdfUrl: user.pdf.fileUrl // optional: send file URL
     });
   } catch (error) {
@@ -98,7 +98,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
 
     const file = req.file;
     const receiver = req.body.receiver;
-    const label = req.body.receiver;
+    const label = req.body.label;
 
     if (!file || !receiver) {
       return res.status(400).json({ message: 'Missing file or receiver name' });
@@ -135,6 +135,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     res.json({
       success: true,
       fileName: file.filename, 
+      label,
       rfid,
       fileUrl: fileUrl,        // ✅ Optionally return full URL too
       receiver,
