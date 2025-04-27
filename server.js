@@ -82,7 +82,7 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
     }
     res.json({
       success: true,
-      name: user.label,
+      label: user.label,
       pdfUrl: user.pdf.fileUrl // optional: send file URL
     });
   } catch (error) {
@@ -137,7 +137,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
       fileName: file.filename, 
       label,
       rfid,
-      fileUrl: fileUrl,        // ✅ Optionally return full URL too
+      fileUrl: fileUrl,        
       receiver,
       qrcode: qrDataUrl
     });
