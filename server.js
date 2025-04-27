@@ -80,11 +80,13 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
+    
     res.json({
       success: true,
       label: user.label,
-      pdfUrl: user.pdf.fileUrl // optional: send file URL
+      pdfUrl: user.pdf.fileUrl 
     });
+
   } catch (error) {
     console.error("Error fetching user by RFID:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
