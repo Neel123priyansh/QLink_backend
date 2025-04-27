@@ -119,6 +119,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
       rfid: rfid,
+      label: label,
       fileName: file.originalname,
       pdf: {
         fileUrl: file.path,
