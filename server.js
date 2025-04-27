@@ -91,7 +91,6 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
   }
 })
 
-
 app.post("/upload-files", upload.single("file"), async (req, res) => {
   try {
     console.log("File received:", req.file);
@@ -108,12 +107,12 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
       rfid = '3518510840'; // fixed for Yash
     } else if(receiver.toLowerCase() === 'altamashbeg') {
       rfid = '2345246456';
-    }else{
+    } else if(receiver === 'Priyansh Neel'){
+      rfid = '1234456778';
+    }
+    else{
       console.log("User Not Found")
     }
-
-
-
     const backendBaseUrl = "https://qrsend-backend.onrender.com";
     const fileUrl = `${backendBaseUrl}/files/${file.filename}`; // ✅ public-facing URL
   
