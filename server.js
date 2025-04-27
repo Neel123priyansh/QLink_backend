@@ -98,6 +98,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
 
     const file = req.file;
     const receiver = req.body.receiver;
+    const label = req.body.receiver;
 
     if (!file || !receiver) {
       return res.status(400).json({ message: 'Missing file or receiver name' });
