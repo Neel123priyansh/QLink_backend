@@ -75,7 +75,7 @@ app.post('/login', async (req, res) => {
 
 app.get("/get-user-by-rfid/:rfid", async(req, res) => {
   try {
-    const {rfid} = req.params
+    const rfid = req.params.rfid;
     const user = await assinmodel.findOne({ rfid });
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
