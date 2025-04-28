@@ -8,15 +8,18 @@ import mongoose from "mongoose";
 import { json } from 'express';
 import {S3Client} from "@aws-sdk/client-s3"
 import multerS3 from "multer-s3"
+import dotenv from 'dotenv'
 
 
 const app = express();
+dotenv.config();
 app.use(json());
 
+
 const s3Client = new S3Client({
-  accessKeyId: 'AKIA3NVQI3DBTSS3RMNQ',
-  secretAccessKey: '5UI/W8hb9yLQ7IosHljC3fgOKsh99CPHzzAnGKI7',
-  region: 'eu-north-1', // e.g., 'ap-south-1'
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRETE_ACCESS_KEY,
+  region: process.env.REGION, 
 });
 
 const corsOptions = {
