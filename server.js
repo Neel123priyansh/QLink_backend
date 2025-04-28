@@ -6,10 +6,18 @@ import multer from 'multer'
 import QRCode from 'qrcode';
 import mongoose from "mongoose";
 import { json } from 'express';
+import {S3Client} from "@aws-sdk/client-s3"
+import multerS3 from "multer-s3"
+
 
 const app = express();
 app.use(json());
 
+const s3Client = new S3Client({
+  accessKeyId: 'AKIA3NVQI3DBTSS3RMNQ',
+  secretAccessKey: '5UI/W8hb9yLQ7IosHljC3fgOKsh99CPHzzAnGKI7',
+  region: 'eu-north-1', // e.g., 'ap-south-1'
+});
 
 const corsOptions = {
   origin: '*',
@@ -34,6 +42,20 @@ mongoose.connect(MONGO_URI || "mongodb://localhost:27017/")
 
 // Static Files
 app.use('/files', express.static('files'));
+
+const awsupload = multer({
+  storage: multerS3({
+    s3: s3Client,
+    bucket: 'myawswala',
+    acl: 'public-read', // so that URL is accessible
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString() + "_" + file.originalname);
+    }
+  })
+})
 
 // Multer setup for file uploads
 const storage = multer.diskStorage({
@@ -93,7 +115,7 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
   }
 })
 
-app.post("/upload-files", upload.single("file"), async (req, res) => {
+app.post("/upload-files", awsupload.single("file"), async (req, res) => {
   try {
     console.log("File received:", req.file);
     console.log("Request Body:", req.body);
@@ -117,7 +139,7 @@ app.post("/upload-files", upload.single("file"), async (req, res) => {
       console.log("User Not Found")
     }
     const backendBaseUrl = "https://qrsend-backend.onrender.com";
-    const fileUrl = `${backendBaseUrl}/files/${file.filename}`; // ✅ public-facing URL
+    const fileUrl = req.file.location; // ✅ public-facing URL
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
