@@ -53,7 +53,6 @@ const awsupload = multer({
   storage: multerS3({
     s3: s3Client,
     bucket: 'myawswala',
-    acl: 'public-read', // so that URL is accessible
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
