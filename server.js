@@ -17,7 +17,7 @@ app.use(json());
 
 
 const s3Client = new S3Client({
-  region: process.env.REGION,
+  region: 'eu-north-1',
   credentials: {
     accessKeyId: process.env.ACCESS_KEY_ID,
     secretAccessKey: process.env.SECRETE_ACCESS_KEY,
