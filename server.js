@@ -154,7 +154,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label: label,
       fileName: file.originalname,
       pdf: {
-        fileUrl: fileUrl,
+        fileUrl: viewerFileUrl,
       }
     });
     await newDoc.save();
