@@ -17,9 +17,11 @@ app.use(json());
 
 
 const s3Client = new S3Client({
-  accessKeyId: process.env.ACCESS_KEY_ID,
-  secretAccessKey: process.env.SECRETE_ACCESS_KEY,
-  region: 'eu-north-1', 
+  region: process.env.REGION,
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRETE_ACCESS_KEY,
+  }
 });
 
 const corsOptions = {
@@ -60,17 +62,17 @@ const awsupload = multer({
   })
 })
 
-// Multer setup for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-      cb(null, './files');
-  },
-  filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now();
-      cb(null, uniqueSuffix + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
+// // Multer setup for file uploads
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//       cb(null, './files');
+//   },
+//   filename: function (req, file, cb) {
+//       const uniqueSuffix = Date.now();
+//       cb(null, uniqueSuffix + file.originalname);
+//   }
+// });
+// const upload = multer({ storage: storage });
 
 // Login Route
 app.post('/login', async (req, res) => {
