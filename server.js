@@ -145,8 +145,8 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     else{
       console.log("User Not Found")
     }
-    const backendBaseUrl = "https://qrsend-backend.onrender.com";
     const fileUrl = req.file.location; // ✅ public-facing URL
+    const viewerFileUrl = "https://docs.google.com/viewer?url=" + fileUrl; // Use for viewing
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
@@ -154,7 +154,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label: label,
       fileName: file.originalname,
       pdf: {
-        fileUrl: file.location,
+        fileUrl: fileUrl,
       }
     });
     await newDoc.save();
@@ -169,6 +169,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label,
       rfid,
       fileUrl: fileUrl,        
+      viewerFileUrl: viewerFileUrl,
       receiver,
       qrcode: qrDataUrl
     });
