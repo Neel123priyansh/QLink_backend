@@ -10,9 +10,10 @@ import {S3Client} from "@aws-sdk/client-s3"
 import multerS3 from "multer-s3"
 import dotenv from 'dotenv'
 
+dotenv.config();
 
 const app = express();
-dotenv.config();
+
 app.use(json());
 
 
@@ -20,7 +21,7 @@ const s3Client = new S3Client({
   region: 'eu-north-1',
   credentials: {
     accessKeyId: process.env.ACCESS_KEY_ID,
-    secretAccessKey: process.env.SECRETE_ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
   }
 });
 
