@@ -167,8 +167,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       success: true,
       fileName: file.filename, 
       label,
-      rfid,
-      fileUrl: fileUrl,        
+      rfid,      
       viewerFileUrl: viewerFileUrl,
       receiver,
       qrcode: qrDataUrl
