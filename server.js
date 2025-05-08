@@ -147,6 +147,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     }
     const fileUrl = req.file.location; // ✅ public-facing URL
     const viewerFileUrl = "https://docs.google.com/viewer?url=" + fileUrl; // Use for viewing
+    const shorturl = "https://tinyurl.com/api-create.php?url=" + viewerFileUrl;
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
@@ -155,11 +156,12 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       fileName: file.originalname,
       pdf: {
         fileUrl: viewerFileUrl,
+        shortUrlpls: shorturl,
       }
     });
     await newDoc.save();
 
-    const qrDataUrl = await QRCode.toDataURL(viewerFileUrl);
+    const qrDataUrl = await QRCode.toDataURL(shorturl);
 
     console.log(qrDataUrl);
 
@@ -169,6 +171,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label,
       rfid,      
       viewerFileUrl: viewerFileUrl,
+      shortUrlpls: shorturl,
       receiver,
       qrcode: qrDataUrl
     });
