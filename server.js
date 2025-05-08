@@ -155,7 +155,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     try {
       const bitlyResponse = await axios.post(
         'https://api-ssl.bitly.com/v4/shorten',
-        { long_url: longUrl },
+        { long_url: viewerFileUrl },
         {
           headers: {
             Authorization: `Bearer ${bitlyToken}`,
