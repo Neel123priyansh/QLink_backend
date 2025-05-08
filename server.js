@@ -166,7 +166,6 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       shorturl = bitlyResponse.data.link;
     } catch (err) {
       console.error('Bitly shortening failed:', err.response?.data || err.message);
-      shorturl = longUrl; // fallback
     }
 
     const newDoc = new assinmodel({
