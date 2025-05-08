@@ -154,18 +154,19 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     const longUrl = viewerFileUrl;
     try {
       const bitlyResponse = await axios.post(
-        "https://api-ssl.bitly.com/v4/shorten",
+        'https://api-ssl.bitly.com/v4/shorten',
         { long_url: longUrl },
         {
           headers: {
             Authorization: `Bearer ${bitlyToken}`,
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
           }
         }
       );
       shorturl = bitlyResponse.data.link;
     } catch (err) {
-      console.warn("Bitly shortening failed, using original viewer URL", err.message);
+      console.error('Bitly shortening failed:', err.response?.data || err.message);
+      shorturl = longUrl; // fallback
     }
 
     const newDoc = new assinmodel({
