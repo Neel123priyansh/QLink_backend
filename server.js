@@ -115,7 +115,7 @@ app.get("/get-user-by-rfid/:rfid", async(req, res) => {
     res.json({
       success: true,
       label: user.label,
-      pdfUrl: user.pdf.shortUrlpls 
+      shortpdfUrl: user.pdf.shortUrlpls 
     });
 
   } catch (error) {
