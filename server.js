@@ -151,7 +151,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
 
     // const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`);
     // const shorturl = tinyResponse.data;
-    const longUrl = viewerFileUrl;
+    let shorturl = viewerFileUrl; // Declare with fallback value first
     try {
       const bitlyResponse = await axios.post(
         'https://api-ssl.bitly.com/v4/shorten',
