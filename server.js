@@ -152,13 +152,17 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     // const shorturl = tinyResponse.data;
     let shorturl = viewerFileUrl; // fallback value
     try {
-      const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`);
+      const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Node.js Server)" // Bypass bot filter
+        }
+      });
       shorturl = tinyResponse.data;
     } catch (err) {
       console.warn("TinyURL shortening failed, using original viewer URL");
     }
 
-  
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
       rfid: rfid,
