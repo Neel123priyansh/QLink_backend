@@ -171,6 +171,18 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     });
     await newDoc.save();
 
+    console.log("Saving to DB:", {
+      name: receiver,
+      rfid,
+      label,
+      fileName: file.originalname,
+      pdf: {
+        fileUrl: viewerFileUrl,
+        shortUrlpls: shorturl,
+      }
+    });
+    
+
     const qrDataUrl = await QRCode.toDataURL(shorturl);
 
     console.log(qrDataUrl);
