@@ -147,7 +147,9 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     }
     const fileUrl = req.file.location; // ✅ public-facing URL
     const viewerFileUrl = "https://docs.google.com/viewer?url=" + fileUrl; // Use for viewing
-    const shorturl = "https://tinyurl.com/api-create.php?url=" + viewerFileUrl;
+    
+    const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`);
+    const shorturl = tinyResponse.data;
   
     const newDoc = new assinmodel({
       name: receiver, // ⬅️ Save it to the `name` field in schema
