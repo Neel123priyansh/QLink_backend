@@ -16,6 +16,7 @@ const app = express();
 
 app.use(json());
 
+const bitlyToken = "bde93ba015dcf5b142ee80804f45378c83a6e3a6";
 
 const s3Client = new S3Client({
   region: 'eu-north-1',
@@ -150,17 +151,21 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
 
     // const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`);
     // const shorturl = tinyResponse.data;
-    let shorturl = viewerFileUrl; // fallback value
+    const longUrl = viewerFileUrl;
     try {
-      const tinyResponse = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerFileUrl)}`,
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Node.js Server)" // Bypass bot filter
+      const bitlyResponse = await axios.post(
+        "https://api-ssl.bitly.com/v4/shorten",
+        { long_url: longUrl },
+        {
+          headers: {
+            Authorization: `Bearer ${bitlyToken}`,
+            "Content-Type": "application/json"
+          }
         }
-      });
-      shorturl = tinyResponse.data;
+      );
+      shorturl = bitlyResponse.data.link;
     } catch (err) {
-      console.warn("TinyURL shortening failed, using original viewer URL");
+      console.warn("Bitly shortening failed, using original viewer URL", err.message);
     }
 
     const newDoc = new assinmodel({
