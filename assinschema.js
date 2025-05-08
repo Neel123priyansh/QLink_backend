@@ -6,7 +6,6 @@ const PDFschema = new mongoose.Schema({
     label: {type: String, required: true},
     fileName: { type: String, required: true },
     pdf: {
-        fileUrl: {type: String, required: true},
         shortUrlpls: {type: String, require: true}, 
         uploadDate: { type: Date, default: Date.now },
     }

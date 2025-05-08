@@ -175,7 +175,6 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label: label,
       fileName: file.originalname,
       pdf: {
-        fileUrl: viewerFileUrl,
         shortUrlpls: shorturl,
       }
     });
@@ -187,7 +186,6 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       label,
       fileName: file.originalname,
       pdf: {
-        fileUrl: viewerFileUrl,
         shortUrlpls: shorturl,
       }
     });
@@ -202,7 +200,6 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
       fileName: file.filename, 
       label,
       rfid,      
-      viewerFileUrl: viewerFileUrl,
       shortUrlpls: shorturl,
       receiver,
       qrcode: qrDataUrl
