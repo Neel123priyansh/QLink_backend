@@ -9,6 +9,7 @@ import { json } from 'express';
 import {S3Client} from "@aws-sdk/client-s3"
 import multerS3 from "multer-s3"
 import dotenv from 'dotenv'
+import axios from 'axios'
 
 dotenv.config();
 
