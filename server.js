@@ -17,7 +17,7 @@ const app = express();
 
 app.use(json());
 
-const bitlyToken = "bde93ba015dcf5b142ee80804f45378c83a6e3a6";
+const bitlyToken = "daecc4047cdfa5695e456988dc5ee52056cf5c9c";
 
 const s3Client = new S3Client({
   region: 'eu-north-1',
