@@ -140,7 +140,7 @@ app.post("/upload-files", awsupload.single("file"), async (req, res) => {
     if (receiver.toLowerCase() === 'yashpandey') {
       rfid = '3518510840'; 
     } else if(receiver.toLowerCase() === 'altamashbeg') {
-      rfid = '2345246456';
+      rfid = '1924310820';
     // } else if(receiver === 'Priyansh Neel'){
     //   rfid = '1234456778';
     }
