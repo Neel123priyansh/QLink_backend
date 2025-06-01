@@ -12,7 +12,6 @@ QLink_Backend is the Node.js + Express server that powers the QLink system. It a
 - 📁 AWS S3 for PDF storage
 - 🔗 Bitly API for secure short URLs
 - 🧠 MongoDB with Mongoose
-- 🔐 `.env` for API secrets (Bitly, AWS)
 - 🧪 REST API with JSON response
 
 ---
