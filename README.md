@@ -1,4 +1,4 @@
-# QLink_Backen ⚙️
+# QLink_Backend ⚙️
 
 QLink_Backend is the Node.js + Express server that powers the QLink system. It allows admins to upload PDF documents (like IDs, reports, certificates) for specific users identified by their RFID tags. It generates public-facing short links and stores all metadata securely in MongoDB.
 
