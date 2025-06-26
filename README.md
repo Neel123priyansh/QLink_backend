@@ -16,7 +16,7 @@ QLink_Backend is the Node.js + Express server that powers the QLink system. It a
 
 ---
 
-## 🔧 Features
+## 🔧 Feature
 
 - 📤 Upload PDFs with labels, receiver name
 - 📑 Generate Google Docs Viewer URLs
