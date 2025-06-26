@@ -21,7 +21,7 @@ QLink_Backend is the Node.js + Express server that powers the QLink system. It a
 - 📤 Upload PDFs with labels, receiver name
 - 📑 Generate Google Docs Viewer URLs
 - 🔗 Auto-shortens URLs using Bitly API
-- 🧾 Save document metadata and link in MongoDB
+- 🧾 Save document metadata and link in Mongo
 - 📲 Query by RFID to get latest file info
 - 🖼️ Generates QR Code from the Bitly link
 
