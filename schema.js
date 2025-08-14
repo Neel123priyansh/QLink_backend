@@ -6,6 +6,6 @@ const userschema = new mongoose.Schema({
   discriptor: [Number] // 128-length float array
 });
 
-const dbmschema = mongoose.model("userDBMS", userschema);
+consrtt dbmschema = mongoose.model("userDBMS", userschema);
 
 export default dbmschema; 
