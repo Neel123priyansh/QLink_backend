@@ -8,4 +8,4 @@ const userschema = new mongoose.Schema({
 
 const dbmschema = mongoose.model("userDBMS", userschema);
 
-export default dbmschema;
+export default dbmschema; 
